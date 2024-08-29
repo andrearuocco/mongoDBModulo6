@@ -4,7 +4,7 @@ import transport from '../services/serviceMail.js';
 
 export const addBlogPost = async (req, res) => {
     // crea nuova istanza del modello blogpost con i dati definiti nel corpo della richiesta 
-    const blogpost = new blogPost(req.body) // da preparare quando si lavoro con il front-end => const blogpost = new Post ({...req.body, cover: req.file.path, readTime: JSON.parse(req.body.readTime)})
+    const blogpost = new blogPost(req.body) // da preparare quando si lavora con il front-end => const blogpost = new Post ({...req.body, cover: req.file.path, readTime: JSON.parse(req.body.readTime)})
     let newBlPo
     try {
         newBlPo = await blogpost.save() // salva i dati nel DB
