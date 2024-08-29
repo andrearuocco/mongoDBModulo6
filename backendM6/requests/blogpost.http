@@ -1,0 +1,59 @@
+###
+POST http://localhost:5001/blogpost
+Content-Type: application/json
+
+{
+    "category": "Category3",
+    "title": "Anche io sono fuso",
+    "readTime": {
+        "value": 189,
+        "unit": "sec"
+    },
+    "author": "66d07b2129526c72a27ccb54",
+    "content": "cosa fare come progetto"
+}
+
+###
+GET http://localhost:5001/blogpost?page=1&perPage=2
+
+###
+GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64
+
+###
+PUT http://localhost:5001/blogpost/66d07c4129526c72a27ccb62
+Content-Type: application/json
+
+{
+    "category": "Category5"
+}
+
+###
+DELETE http://localhost:5001/blogpost/66d07e4429526c72a27ccb84
+
+###
+POST http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments
+Content-Type: application/json
+
+{
+    "content": "nono commento da piangente"
+}
+
+###
+GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments
+
+###
+GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments/66d07ed829526c72a27ccb91
+
+###
+PUT http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comment/66d07ed829526c72a27ccb91
+Content-Type: application/json
+
+{
+    "content": "pianto del giorno, cambiare il commento due che era secondo commento da piangente"
+} 
+
+###
+DELETE http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comment/66d07ed829526c72a27ccb91
+
+
+

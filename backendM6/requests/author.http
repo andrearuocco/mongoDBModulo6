@@ -1,0 +1,28 @@
+###
+POST http://localhost:5001/author
+Content-Type: application/json
+
+{
+    "name": "Andrea",
+    "surname": "Vandalo",
+    "email": "vandalo@gmail.com",
+    "birthDate": 554032800000,
+    "avatar": "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+}
+
+###
+GET http://localhost:5001/author?page=3&perPage=1
+
+###
+GET http://localhost:5001/author/66d07b2129526c72a27ccb54
+
+###
+PUT http://localhost:5001/author/66d07c1029526c72a27ccb60
+Content-Type: application/json
+
+{
+    "surname": "Cocco"
+}
+
+###
+DELETE http://localhost:5001/author/66d07b7c29526c72a27ccb5d
