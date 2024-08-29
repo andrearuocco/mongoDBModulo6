@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import authorRoutes from './routes/authorRoutes.js'
 import blogpostRouter from './routes/blogpostRoutes.js'
 import cors from 'cors'
+import userRouter from './routes/userRoutes.js'
 
 /* 
 // cosa faccio con author ??
@@ -44,8 +45,10 @@ const server = express()
 server.use(cors()) // cors è un middleware che consente la connessione tra il server di backend e quello di frontend
 
 server.use(express.json()) // express è un middleware utilizzato in modo che il server riconosca come JSON il body delle richieste
+server.use('/api/v1', userRouter)
 server.use('/author', authorRoutes)
 server.use('/blogpost', blogpostRouter)
+
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))

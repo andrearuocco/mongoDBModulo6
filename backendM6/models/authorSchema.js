@@ -13,7 +13,7 @@ const authorSchema = new Schema ({
         type: String, 
         required: [true, "Please enter an email"],
         trim: true,
-        unique: true,
+        unique: true
     },
     birthDate: {
         type: Date, 
