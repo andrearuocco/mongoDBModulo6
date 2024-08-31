@@ -4,9 +4,11 @@ import mongoose from 'mongoose'
 import authorRoutes from './routes/authorRoutes.js'
 import blogpostRouter from './routes/blogpostRoutes.js'
 import cors from 'cors'
+import authRouter from './routes/authRoutes.js'
+import morgan from 'morgan'
+import helmet from 'helmet'
 
 /* 
-// cosa faccio con author ??
 import blogPost from './models/blogpostSchema.js'
 import { faker } from '@faker-js/faker';
 const generateblogPost = (num) => {
@@ -41,11 +43,14 @@ const port = process.env.PORT || 5001
 const host = process.env.HOST || 'http://localhost:5001/'
 const server = express()
 
-server.use(cors()) // cors è un middleware che consente la connessione tra il server di backend e quello di frontend
-
 server.use(express.json()) // express è un middleware utilizzato in modo che il server riconosca come JSON il body delle richieste
+server.use(cors()) // cors è un middleware che consente la connessione tra il server di backend e quello di frontend
+server.use(morgan("dev")) // middleware che mostra i log delle richieste http
+server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
+
 server.use('/author', authorRoutes)
 server.use('/blogpost', blogpostRouter)
+server.use('/api/v1', authRouter) 
 
 await mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connessione al database...'))

@@ -5,7 +5,7 @@ import uploadCloudinary from '../middleware/uploadCloudinary.js';
 
 const blogpostRouter = express.Router()
 
-blogpostRouter.post('/', addBlogPost) 
+blogpostRouter.post('/', uploadCloudinary.single('cover'), addBlogPost) // per caricare la cover di un blogPost direttamente quanto viene caricato un nuovo blogPost
 
 blogpostRouter.get('/', getAllBlPo)
 

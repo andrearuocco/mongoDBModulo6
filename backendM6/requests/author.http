@@ -3,26 +3,27 @@ POST http://localhost:5001/author
 Content-Type: application/json
 
 {
-    "name": "Andrea",
-    "surname": "Vandalo",
-    "email": "vandalo@gmail.com",
-    "birthDate": 554032800000,
-    "avatar": "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+    "name": "Patrizia",
+    "surname": "Patti",
+    "email": "patriziapatti@gmail.com",
+    "password": "patriziapatti",
+    "birthDate": 551334800000,
+    "avatar": ""
 }
 
 ###
-GET http://localhost:5001/author?page=3&perPage=1
+GET http://localhost:5001/author?page=2&perPage=1
 
 ###
-GET http://localhost:5001/author/66d07b2129526c72a27ccb54
+GET http://localhost:5001/author/66d321075e8ac74b71c6c49e
 
 ###
-PUT http://localhost:5001/author/66d07c1029526c72a27ccb60
+PUT http://localhost:5001/author/66d321075e8ac74b71c6c49e
 Content-Type: application/json
 
 {
-    "surname": "Cocco"
+    "email": "patrizia@gmail.com"
 }
 
 ###
-DELETE http://localhost:5001/author/66d07b7c29526c72a27ccb5d
+DELETE http://localhost:5001/author/66d321075e8ac74b71c6c49e
