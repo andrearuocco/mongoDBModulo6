@@ -16,4 +16,6 @@ authorRouter.delete('/:id', deleteAuthor )
 
 authorRouter.patch('/:authorId/avatar', uploadCloudinary.single('avatar'), patchAuthor) 
 
+// userRouter.post('/register', register)
+
 export default authorRouter

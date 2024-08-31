@@ -3,57 +3,67 @@ POST http://localhost:5001/blogpost
 Content-Type: application/json
 
 {
-    "category": "Category3",
-    "title": "Anche io sono fuso",
+    "category": "Category2",
+    "title": "La guerra fredda e il mondo diviso",
     "readTime": {
-        "value": 189,
+        "value": 36,
         "unit": "sec"
     },
-    "author": "66d07b2129526c72a27ccb54",
-    "content": "cosa fare come progetto"
+    "author": {
+        "_id": "66d3207d5e8ac74b71c6c49a",
+        "email": "ruoccoandrea@gmail.com"
+    },
+    "content": "This is the content of my awesome blog post.",
+    "tags": [
+        {"name": "history"},
+        {"name": "politics scienze"}
+    ]
 }
 
 ###
-GET http://localhost:5001/blogpost?page=1&perPage=2
+GET http://localhost:5001/blogpost?page=1&perPage=1
 
 ###
-GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64
+GET http://localhost:5001/blogpost?title=post
 
 ###
-PUT http://localhost:5001/blogpost/66d07c4129526c72a27ccb62
+GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6
+
+###
+PUT http://localhost:5001/blogpost/66d3242e89b3d9ed5efac5ea
 Content-Type: application/json
 
 {
-    "category": "Category5"
+    "title": "My blogPost"
 }
 
 ###
-DELETE http://localhost:5001/blogpost/66d07e4429526c72a27ccb84
+DELETE http://localhost:5001/blogpost/66d3242e89b3d9ed5efac5ea
 
 ###
-POST http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments
+POST http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments
 Content-Type: application/json
 
 {
-    "content": "nono commento da piangente"
+    "content": "Lorem Ipsum è un testo segnaposto utilizzato anche dai developer bravi o meno bravi"
 }
 
 ###
-GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments
+GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments
 
 ###
-GET http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comments/66d07ed829526c72a27ccb91
+GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments/66d32801079e900f68090ab1
 
 ###
-PUT http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comment/66d07ed829526c72a27ccb91
+PUT http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comment/66d32801079e900f68090ab1
 Content-Type: application/json
 
 {
-    "content": "pianto del giorno, cambiare il commento due che era secondo commento da piangente"
+    "content": "Lorem Ipsum è un testo segnaposto utilizzato anche dai devoloper non bravi"
 } 
 
 ###
-DELETE http://localhost:5001/blogpost/66d07d0029526c72a27ccb64/comment/66d07ed829526c72a27ccb91
+DELETE http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comment/66d32823079e900f68090ab3
 
 
 

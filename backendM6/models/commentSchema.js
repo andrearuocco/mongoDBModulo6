@@ -5,7 +5,7 @@ const commentsSchema = new Schema(
         content: {
             type: String,
             minLength: 3,
-            maxLength: 600,
+            maxLength: 5000,
             required: true,
             trim: true, // elimina spazi bianchi all'inizio e alla fine del testo inserito in modo da non appesantire il database con caratteri inutili
         },

@@ -4,7 +4,33 @@ import transport from '../services/serviceMail.js';
 
 export const addBlogPost = async (req, res) => {
     // crea nuova istanza del modello blogpost con i dati definiti nel corpo della richiesta 
-    const blogpost = new blogPost(req.body) // da preparare quando si lavora con il front-end => const blogpost = new Post ({...req.body, cover: req.file.path, readTime: JSON.parse(req.body.readTime)})
+    // per RestClient per Code => const blogpost = new blogPost(req.body) 
+    /* blogPost di questo tipo 
+    {
+        "category": "Category2",
+        "title": "La guerra fredda e il mondo diviso",
+        "readTime": {
+            "value": 36,
+            "unit": "sec"
+        },
+        "author": {
+            "_id": "66d2e60e3bd1d520a9ab8840",
+            "email": "samuelecalabrese@gmail.com"
+        },
+        "content": "This is the content of my awesome blog post.",
+        "tags": [
+            {"name": "history"},
+            {"name": "politics scienze"}
+        ]
+    }
+    in http PUT /blogpost */ 
+    const author = JSON.parse(req.body.author); // converte i campi dell'oggetto author di blogPost in stringhe JSON
+    const blogpost = new blogPost({
+        ...req.body,
+        author: { _id: author._id, email: author.email }, 
+        cover: req.file.path, // percorso del file caricato
+        readTime: JSON.parse(req.body.readTime), // parso anche readTime in quanto inviato come stringa JSON
+    });
     let newBlPo
     try {
         newBlPo = await blogpost.save() // salva i dati nel DB
@@ -14,14 +40,16 @@ export const addBlogPost = async (req, res) => {
         return res.status(400).send(error)
     }
     try {
-        const author = await Author.findById(newBlPo.author)
-        await transport.sendMail({
-            from: 'noreply@epicoders.com', // sender address
-            to: author.email, // list of receivers
-            subject: "New blogPost", // Subject line
-            text: "You have created a new blog post!", // plain text body
-            html: "<b>You have created a new blog post!</b>" // html body
-        })
+        const author = await Author.findById(newBlPo.author._id) 
+        if (author) {
+            await transport.sendMail({
+                from: 'noreply@epicoders.com', // sender address
+                to: author.email, // list of receivers
+                subject: "New blogPost", // Subject line
+                text: "You have created a new blog post!", // plain text body
+                html: "<b>You have created a new blog post.</b>" // html body
+            })
+        }
     } catch (error) {
         console.log(error)
     }
