@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "category": "Category2",
-    "title": "La guerra fredda e il mondo diviso",
+    "title": "L'Italia contemporanea",
     "readTime": {
         "value": 36,
         "unit": "sec"

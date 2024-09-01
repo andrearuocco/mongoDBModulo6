@@ -40,8 +40,8 @@ export const addBlogPost = async (req, res) => {
         return res.status(400).send(error)
     }
     try {
-        const author = await Author.findById(newBlPo.author._id) 
-        if (author) {
+        const authorId = await Author.findById(newBlPo.author._id) 
+        if (authorId) {
             await transport.sendMail({
                 from: 'noreply@epicoders.com', // sender address
                 to: author.email, // list of receivers

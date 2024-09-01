@@ -39,7 +39,7 @@ const blogpostSchema = new Schema ({
           type: String,
           lowercase: true,
         },
-      },
+    },
     content: {
         type: String,
         required: true,

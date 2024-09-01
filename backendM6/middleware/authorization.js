@@ -3,7 +3,6 @@ import Author from '../models/authorSchema.js';
 
 export default (req, res, next) => {
     // verifacere se c'è l'header Authorization e se è di tipo Bearer
-    // Authorization: Bearer asdhklasdre.bkjdskdfhkshksdfjsdbf.ddsfsdfsdfsdfsddf
 
     if (!req.headers.authorization) return res.status(401).send();
     const parts = req.headers.authorization.split(' ');

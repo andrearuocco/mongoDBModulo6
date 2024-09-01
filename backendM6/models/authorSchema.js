@@ -23,6 +23,7 @@ const authorSchema = new Schema ({
     password: {
         type: String,
         required: true,
+        select: false, // impedisce la selezione del campo da parte di mongoDB
     },
     birthDate: {
         type: Date, 
