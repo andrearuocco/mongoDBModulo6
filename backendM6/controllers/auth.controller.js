@@ -15,7 +15,7 @@ export const register = async (req, res) => {
         email: req.body.email,
         password: await bcrypt.hash(req.body.password, 10),
         birthDate: req.body.birthDate,
-        avatar: req.body.avatar ? req.body.avatar : 'https://thumbs.dreamstime.com/z/disegno-vettoriale-immagine-profilo-avatar-vuoto-262683009.jpg?ct=jpeg',
+        avatar: req.file ? req.file.path : 'https://thumbs.dreamstime.com/z/disegno-vettoriale-immagine-profilo-avatar-vuoto-262683009.jpg?ct=jpeg',
         verifictedAct: new Date()
     })
 
@@ -49,4 +49,9 @@ export const login = async (req, res) => {
 
 export const me = async (req, res) => {
     return res.send(req.loggedAuthor)
+}
+
+export const callbackGoogle = async (req, res) => {
+    // passport come multer fornisce dei middleware 
+    res.redirect(`http://localhost:3000/token=${req.author.token}`)
 }

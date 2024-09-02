@@ -7,6 +7,8 @@ import cors from 'cors'
 import authRouter from './routes/authRoutes.js'
 import morgan from 'morgan'
 import helmet from 'helmet'
+/* import passport from 'passport'
+import googleStrategy from './config/passport.config.js' */
 
 /* 
 import blogPost from './models/blogpostSchema.js'
@@ -42,6 +44,8 @@ blogPost.insertMany(blogpost)
 const port = process.env.PORT || 5001
 const host = process.env.HOST || 'http://localhost:5001/'
 const server = express()
+
+// passport.use('google', googleStrategy)
 
 server.use(express.json()) // express è un middleware utilizzato in modo che il server riconosca come JSON il body delle richieste
 server.use(cors()) // cors è un middleware che consente la connessione tra il server di backend e quello di frontend

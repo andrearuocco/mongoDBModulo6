@@ -3,9 +3,9 @@ POST http://localhost:5001/api/v1/register
 Content-Type: application/json
 
 {
-    "name": "Joel",
+    "name": "michele",
     "surname": "Ruocco",
-    "email": "ruoccojoel@gmail.com",
+    "email": "ruoccomichele@gmail.com",
     "password": "joelruocco",
     "birthDate": 774032800000,
     "avatar": ""
@@ -16,7 +16,7 @@ POST http://localhost:5001/api/v1/login
 Content-Type: application/json
 
 {
-    "email": "ruoccojoel@gmail.com",
+    "email": "ruoccomichele@gmail.com",
     "password": "joelruocco"
 }
 

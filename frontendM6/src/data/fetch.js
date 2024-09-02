@@ -43,21 +43,24 @@ export const register = async (formRegistration, avatar) => {
     const formData = new FormData()
     formData.append('name', formRegistration.name)
     formData.append('surname', formRegistration.surname)
-    formData.append('avatar', avatar)
     formData.append('birthDate', formRegistration.birthDate)
+    formData.append('email', formRegistration.email)
     formData.append('password', formRegistration.password)
- 
+    formData.append('avatar', avatar)
+
+    console.log(formData.get("name"))
     const res = await fetch ('http://localhost:5001/api/v1/register', {
-        headers: {
+        /* headers: {
             "Content-Type": "application/json",
         },
+         */
         method: 'POST',
-        body: JSON.stringify(formRegistration)
+        body: formData
     })
 
     const data = await res.json()
     return data 
-}
+} 
 
 export const me = async() => {
     const res = await fetch ('http://localhost:5001/api/v1/me', {

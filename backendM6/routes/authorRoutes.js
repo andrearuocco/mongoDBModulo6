@@ -4,6 +4,7 @@ import uploadCloudinary from '../middleware/uploadCloudinary.js';
 
 const authorRouter = express.Router()
 
+
 authorRouter.post('/', addAuthor)
 
 authorRouter.get('/', getAllAuthor)

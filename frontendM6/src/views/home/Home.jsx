@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Container, Modal, Form } from "react-bootstrap";
 import BlogList from "../../components/blog/blog-list/BlogList";
 import "./styles.css";
-import { login } from "../../data/fetch.js"
+import { login, register } from "../../data/fetch.js"
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 
 const Home = props => {
@@ -12,36 +12,10 @@ const Home = props => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [showRegister, setShowRegister] = useState(false);
-  const handleCloseTwo = () => setShowRegister(false);
-  const handleShowTwo = () => setShowRegister(true);
+
+
 
   const [formValue, setFormValue] = useState({email:"", password:""})
-  const initialRegistration = {
-    name: "",
-    surname: "",
-    avatar: "",
-    birthDate: 774032800000,
-    email: "",
-    password: ""
-  }
-  const [formRegistration, setFormRegistration] = useState(initialRegistration)
-  const [avatar, setAvatar] = useState("")
-
-  const handleChangeRegistration = (event) =>{
-    setFormRegistration({
-      ...formRegistration,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  const handleChangeImage = (event) =>{
-    handleChangeRegistration(event)
-    setAvatar(event.target.files[0])
-  }
-
-
-
 
 
   const handleChange = (event) =>{
@@ -90,49 +64,7 @@ const Home = props => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {!token && <Button className="ms-3" variant="secondary" onClick={handleShowTwo}>
-        Register
-      </Button> }
-      <Modal show={showRegister} onHide={handleCloseTwo}>
-        <Modal.Header closeButton>
-          <Modal.Title>LOGIN</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" name="email" onChange={handleChangeRegistration} placeholder="name@example.com" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" onChange={handleChangeRegistration} placeholder="la tua password" />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="name" name="name" onChange={handleChangeRegistration} placeholder="la tua il tuo nome" />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-        <Form.Label>Surname</Form.Label>
-        <Form.Control type="surname" name="surname" onChange={handleChangeRegistration} placeholder="il tuo cognome" />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-        <Form.Label>Avatar</Form.Label>
-        <Form.Control type="file" name="avatar" onChange={handleChangeImage} placeholder="il tuo avatar" />
-      </Form.Group>
-      </Form>
-      </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseTwo}>
-            Close
-          </Button>
-          <Button variant="primary" >
-            Register now
-          </Button>
-        </Modal.Footer>
-      </Modal>
+    
      {token && <BlogList />}
     </Container>
   
