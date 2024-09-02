@@ -9,10 +9,7 @@ Content-Type: application/json
         "value": 36,
         "unit": "sec"
     },
-    "author": {
-        "_id": "66d3207d5e8ac74b71c6c49a",
-        "email": "ruoccoandrea@gmail.com"
-    },
+    "author":  "66d572962444d19f09c0c355",
     "content": "This is the content of my awesome blog post.",
     "tags": [
         {"name": "history"},
@@ -24,13 +21,13 @@ Content-Type: application/json
 GET http://localhost:5001/blogpost?page=1&perPage=1
 
 ###
-GET http://localhost:5001/blogpost?title=post
+GET http://localhost:5001/blogpost?title=italia
 
 ###
-GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6
+GET http://localhost:5001/blogpost/66d4d8d804d0e389a5080695
 
 ###
-PUT http://localhost:5001/blogpost/66d3242e89b3d9ed5efac5ea
+PUT http://localhost:5001/blogpost/66d4d8d804d0e389a5080695
 Content-Type: application/json
 
 {

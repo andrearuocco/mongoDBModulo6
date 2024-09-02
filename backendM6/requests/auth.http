@@ -3,10 +3,10 @@ POST http://localhost:5001/api/v1/register
 Content-Type: application/json
 
 {
-    "name": "Andrea",
+    "name": "Joel",
     "surname": "Ruocco",
-    "email": "ruoccoandrea@gmail.com",
-    "password": "andrearuocco",
+    "email": "ruoccojoel@gmail.com",
+    "password": "joelruocco",
     "birthDate": 774032800000,
     "avatar": ""
 }
@@ -16,10 +16,10 @@ POST http://localhost:5001/api/v1/login
 Content-Type: application/json
 
 {
-    "email": "ruoccoandrea@gmail.com",
-    "password": "andrearuocco"
+    "email": "ruoccojoel@gmail.com",
+    "password": "joelruocco"
 }
 
 ###
 GET http://localhost:5001/api/v1/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JJZCI6IjY2ZDMyMDdkNWU4YWM3NGI3MWM2YzQ5YSIsImlhdCI6MTcyNTExMjQ4NiwiZXhwIjoxNzI1MTE2MDg2fQ.WEiwgY0WFsCyArdaSZVBTLoA6tgWZfL39DhAzvtdBVI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JJZCI6IjY2ZDU3Mjk2MjQ0NGQxOWYwOWMwYzM1NSIsImlhdCI6MTcyNTI2ODEyMSwiZXhwIjoxNzI1MjcxNzIxfQ.Lw7T3bBURjCIHDwTEoMg8csRVQf82iguop29rd68aAE

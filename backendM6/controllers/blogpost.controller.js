@@ -13,10 +13,7 @@ export const addBlogPost = async (req, res) => {
             "value": 36,
             "unit": "sec"
         },
-        "author": {
-            "_id": "66d2e60e3bd1d520a9ab8840",
-            "email": "samuelecalabrese@gmail.com"
-        },
+        "author": "66d2e60e3bd1d520a9ab8840",
         "content": "This is the content of my awesome blog post.",
         "tags": [
             {"name": "history"},
@@ -24,13 +21,11 @@ export const addBlogPost = async (req, res) => {
         ]
     }
     in http PUT /blogpost */ 
-    const author = JSON.parse(req.body.author); // converte i campi dell'oggetto author di blogPost in stringhe JSON
     const blogpost = new blogPost({
         ...req.body,
-        author: { _id: author._id, email: author.email }, 
         cover: req.file.path, // percorso del file caricato
-        readTime: JSON.parse(req.body.readTime), // parso anche readTime in quanto inviato come stringa JSON
-    });
+        readTime: JSON.parse(req.body.readTime) // parso readTime in quanto inviato come stringa JSON
+    }); 
     let newBlPo
     try {
         newBlPo = await blogpost.save() // salva i dati nel DB
@@ -39,20 +34,18 @@ export const addBlogPost = async (req, res) => {
     } catch (error) {
         return res.status(400).send(error)
     }
-    try {
-        const authorId = await Author.findById(newBlPo.author._id) 
-        if (authorId) {
-            await transport.sendMail({
-                from: 'noreply@epicoders.com', // sender address
-                to: author.email, // list of receivers
-                subject: "New blogPost", // Subject line
-                text: "You have created a new blog post!", // plain text body
-                html: "<b>You have created a new blog post.</b>" // html body
-            })
-        }
+ /*    try {
+        const author = await Author.findById(newBlPo.author)
+/*         await transport.sendMail({
+            from: 'noreply@epicoders.com', // sender address
+            // to: author.email, // list of receivers
+            subject: "New blogPost", // Subject line
+            text: "You have created a new blog post!", // plain text body
+            html: "<b>You have created a new blog post.</b>" // html body
+        }) 
     } catch (error) {
         console.log(error)
-    }
+    } */
 }
 
 export const getAllBlPo = async (req,res) => {

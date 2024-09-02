@@ -5,9 +5,11 @@ import Home from "./views/home/Home";
 import Blog from "./views/blog/Blog";
 import NewBlogPost from "./views/new/New";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AuthorContextProvider from "./context/AuthorContextProvider";
 
 function App() {
   return (
+    <AuthorContextProvider>
     <Router>
       <NavBar />
       <Routes>
@@ -17,6 +19,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </AuthorContextProvider>
   );
 }
 
