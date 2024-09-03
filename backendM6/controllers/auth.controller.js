@@ -53,5 +53,5 @@ export const me = async (req, res) => {
 
 export const callbackGoogle = async (req, res) => {
     // passport come multer fornisce dei middleware 
-    res.redirect(`http://localhost:3000/token=${req.author.token}`)
+    // qui facciamo redirect al front-end passandogli il jwt creato in passport nella query string
 }

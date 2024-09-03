@@ -34,18 +34,18 @@ export const addBlogPost = async (req, res) => {
     } catch (error) {
         return res.status(400).send(error)
     }
- /*    try {
+    try {
         const author = await Author.findById(newBlPo.author)
-/*         await transport.sendMail({
+        await transport.sendMail({
             from: 'noreply@epicoders.com', // sender address
-            // to: author.email, // list of receivers
+            to: author.email, // list of receivers
             subject: "New blogPost", // Subject line
             text: "You have created a new blog post!", // plain text body
             html: "<b>You have created a new blog post.</b>" // html body
-        }) 
+        })
     } catch (error) {
         console.log(error)
-    } */
+    }
 }
 
 export const getAllBlPo = async (req,res) => {

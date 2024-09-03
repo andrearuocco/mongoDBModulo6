@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Container, Modal, Form } from "react-bootstrap";
 import BlogList from "../../components/blog/blog-list/BlogList";
 import "./styles.css";
-import { login, register } from "../../data/fetch.js"
+import { login } from "../../data/fetch.js"
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 
 const Home = props => {
@@ -12,11 +12,7 @@ const Home = props => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-
-
   const [formValue, setFormValue] = useState({email:"", password:""})
-
 
   const handleChange = (event) =>{
     setFormValue({
@@ -26,9 +22,9 @@ const Home = props => {
   }
 
   const handleLogin = async () => {
-    const tokenObj = await login(formValue) //così abbiamo il token da mettere nel localstorage
-    localStorage.setItem('token', tokenObj.token) //lssetitem accetta 2 parametri: la chiave con cui vuoi salvare e poi il valore
-    setToken(tokenObj.token) //dentro token obj c'è la risposta completa dell'end point che è un oggetto e noi dobbiamo prendere solo la propiretà token
+    const tokenObj = await login(formValue) // così abbiamo il token da mettere nel localstorage
+    localStorage.setItem('token', tokenObj.token) // setitem accetta 2 parametri: la chiave con cui vuoi salvare e poi il valore
+    setToken(tokenObj.token) // dentro token obj c'è la risposta completa dell'end point che è un oggetto e noi dobbiamo prendere solo la propiretà token
     handleClose()
   }
   return (
@@ -36,8 +32,7 @@ const Home = props => {
       <h1 className="blog-main-title mb-3">Benvenuto sullo Strive Blog!</h1>
       {!token && <Button variant="primary" onClick={handleShow}>
         Login
-      </Button> }
-
+      </Button>}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -45,16 +40,16 @@ const Home = props => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" name="email" onChange={handleChange} placeholder="name@example.com" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" onChange={handleChange} placeholder="la tua password" />
-      </Form.Group>
-      </Form>
-      </Modal.Body>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" name="email" onChange={handleChange} placeholder="name@example.com" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" onChange={handleChange} placeholder="la tua password" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
@@ -67,7 +62,6 @@ const Home = props => {
     
      {token && <BlogList />}
     </Container>
-  
   );
 };
 

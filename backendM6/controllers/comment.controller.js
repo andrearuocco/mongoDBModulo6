@@ -18,7 +18,7 @@ export const getComments = async (req,res)=>{
     try {
         const comments = await Comment.find({
             blogpost: req.params.blogpostId,
-        }).populate('blogpost', {content:0, _id:1})
+        }).populate('blogpost', {content:0, _id:0, title: 1})
        
         res.send({
             dati: comments,

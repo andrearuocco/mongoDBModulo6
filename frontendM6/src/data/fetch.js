@@ -2,11 +2,12 @@ export const loadPosts = async () => {
     // carica tutti i post presenti nel blog 
     const res = await fetch ('http://localhost:5001/blogpost')
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     return data
 }
 
 export const createOnePost = async (formValue, cover) => {
+    // crea un formData per il caricamento di una nuova istanza blogpost che contiene un file da caricare cover
     const formData = new FormData()
     formData.append('cover', cover)
     formData.append('category', formValue.category)
@@ -14,8 +15,8 @@ export const createOnePost = async (formValue, cover) => {
     formData.append('readTime', JSON.stringify(formValue.readTime))
     formData.append('author', formValue.author)
     formData.append('content', formValue.content)
-
-
+    formData.append('tags', formValue.tags)
+    // non è necessario l'headers perché il browser lo aggiunge da solo calcolando la dimensione del body
     const res = await fetch ('http://localhost:5001/blogpost', {
         method: 'POST',
         body: formData
@@ -48,12 +49,9 @@ export const register = async (formRegistration, avatar) => {
     formData.append('password', formRegistration.password)
     formData.append('avatar', avatar)
 
-    console.log(formData.get("name"))
+    console.log(formData.get("name")) // get consente di vedere in debug se effettivamente alla function sia arrivato il valore inserito dall'utente
+
     const res = await fetch ('http://localhost:5001/api/v1/register', {
-        /* headers: {
-            "Content-Type": "application/json",
-        },
-         */
         method: 'POST',
         body: formData
     })

@@ -1,7 +1,6 @@
 import { useState, createContext, useEffect } from "react"
 import { me } from "../data/fetch.js"
 
-
 export const AuthorContext = createContext()
 
 export default function AuthorContextProvider({children}) {
@@ -12,7 +11,7 @@ export default function AuthorContextProvider({children}) {
       setAuthorInfo(meInfo)
     }
     useEffect(()=>{
-        if (token) getMe() //la me vuole come auth il token, quindi senza il token si rompe il backend
+        if (token) getMe() // la me vuole come auth il token, quindi senza il token si rompe il backend
     },[token])
     const value = {token, setToken, authorInfo}
     return (

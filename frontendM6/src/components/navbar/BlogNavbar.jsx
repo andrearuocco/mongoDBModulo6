@@ -7,23 +7,23 @@ import { AuthorContext } from "../../context/AuthorContextProvider.js";
 import "./styles.css";
 
 const NavBar = props => {
-  const {token, setToken} = useContext(AuthorContext)
+  const {token, setToken} = useContext(AuthorContext) // token usato per mostare pagina loggata oppure no
   
-  const [showRegister, setShowRegister] = useState(false);
+  const [showRegister, setShowRegister] = useState(false); // stato per mostrare il form di registrazione utente
+  // settano lo stato di showRegister per far apparire o scamparire il modal di registrazione
   const handleCloseTwo = () => setShowRegister(false);
   const handleShowTwo = () => setShowRegister(true);
-
-  
+  // inizializzo il form di registrazione utente
   const initialRegistration = {
     name: "",
     surname: "",
     avatar: "",
-    birthDate: 774032800000,
+    birthDate: "",
     email: "",
     password: ""
   }
-  const [formRegistration, setFormRegistration] = useState(initialRegistration)
-  const [avatar, setAvatar] = useState("")
+  const [formRegistration, setFormRegistration] = useState(initialRegistration) // utilizzo uno stato per poter settare il valore del form secondo i dati inseriti dall'utente
+  const [avatar, setAvatar] = useState("") // utilizzo uno stato a sè per l'immagine avatar in quanto mi aspetto un tipo file da parte dell'utente
 
   const handleChangeRegistration = (event) =>{
     setFormRegistration({
@@ -33,12 +33,10 @@ const NavBar = props => {
   } 
 
   const handleChangeImage = (event) =>{
-    //handleChangeRegistration(event)
     setAvatar(event.target.files[0])
   }
 
- const handleRegister = async () => {
-    
+  const handleRegister = async () => {
     const res = await register(formRegistration, avatar)
     console.log(res)
     handleCloseTwo()
@@ -49,54 +47,57 @@ const NavBar = props => {
         <Navbar.Brand as={Link} to="/">
           <img className="blog-navbar-brand" alt="logo" src={logo} />
         </Navbar.Brand>
-          {!token && <Button className="ms-3" variant="secondary" onClick={handleShowTwo}>
-        Register
-      </Button> }
-      <Modal show={showRegister} onHide={handleCloseTwo}>
-        <Modal.Header closeButton>
-          <Modal.Title>LOGIN</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" value={formRegistration.email} name="email" onChange={(event)=>handleChangeRegistration(event)} placeholder="name@example.com" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" value={formRegistration.password} name="password" onChange={(event)=>handleChangeRegistration(event)} placeholder="la tua password" />
-      </Form.Group>
+        {!token && <Button className="ms-3" variant="secondary" onClick={handleShowTwo}>
+          Register
+        </Button>}
+        <Modal show={showRegister} onHide={handleCloseTwo}>
+          <Modal.Header closeButton>
+            <Modal.Title>Registration</Modal.Title>
+          </Modal.Header>
 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="name" value={formRegistration.name} name="name" onChange={(event)=>handleChangeRegistration(event)} placeholder="il tuo nome" />
-      </Form.Group>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" value={formRegistration.email} name="email" onChange={(event) => handleChangeRegistration(event)} placeholder="name@example.com" />
+              </Form.Group>
 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
-        <Form.Label>Surname</Form.Label>
-        <Form.Control type="surname" value={formRegistration.surname} name="surname" onChange={(event)=>handleChangeRegistration(event)} placeholder="il tuo cognome" />
-      </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" value={formRegistration.password} name="password" onChange={(event) => handleChangeRegistration(event)} placeholder="la tua password" />
+              </Form.Group>
 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput7">
-        <Form.Label>Avatar</Form.Label>
-        <Form.Control type="file" name="avatar" onChange={handleChangeImage} placeholder="il tuo avatar" />
-      </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="name" value={formRegistration.name} name="name" onChange={(event) => handleChangeRegistration(event)} placeholder="il tuo nome" />
+              </Form.Group>
 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput8">
-        <Form.Label>Avatar</Form.Label>
-        <Form.Control type="date" value={formRegistration.date} name="birthDate" onChange={(event)=>handleChangeRegistration(event)} placeholder="la tua data di nascita" />
-      </Form.Group>
-      </Form>
-      </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseTwo}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleRegister}>
-            Register now
-          </Button>
-        </Modal.Footer>
-      </Modal> 
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
+                <Form.Label>Surname</Form.Label>
+                <Form.Control type="surname" value={formRegistration.surname} name="surname" onChange={(event) => handleChangeRegistration(event)} placeholder="il tuo cognome" />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput7">
+                <Form.Label>Avatar</Form.Label>
+                <Form.Control type="file" name="avatar" onChange={handleChangeImage} placeholder="il tuo avatar" />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput8">
+                <Form.Label>Avatar</Form.Label>
+                <Form.Control type="date" value={formRegistration.date} name="birthDate" onChange={(event) => handleChangeRegistration(event)} placeholder="la tua data di nascita" />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseTwo}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleRegister}>
+              Register now
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
         {token && <Button as={Link} to="/new" className="blog-navbar-add-button bg-dark" size="lg">
           <svg
@@ -111,8 +112,6 @@ const NavBar = props => {
           </svg>
           Nuovo Articolo
         </Button>}
-
-
       </Container>
     </Navbar>
   );

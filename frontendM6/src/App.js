@@ -10,15 +10,15 @@ import AuthorContextProvider from "./context/AuthorContextProvider";
 function App() {
   return (
     <AuthorContextProvider>
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/blog/:id" element={<Blog />} />
-        <Route path="/new" element={<NewBlogPost />} />
-      </Routes>
-      <Footer />
-    </Router>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/blog/:id" element={<Blog />} />
+          <Route path="/new" element={<NewBlogPost />} />
+        </Routes>
+        <Footer />
+      </Router>
     </AuthorContextProvider>
   );
 }
