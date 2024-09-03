@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Button, Container, Modal, Form } from "react-bootstrap";
 import BlogList from "../../components/blog/blog-list/BlogList";
+import {Link} from "react-router-dom"
 import "./styles.css";
-import { login } from "../../data/fetch.js"
+import { login, loginGoogle } from "../../data/fetch.js"
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 
 const Home = props => {
@@ -30,9 +31,11 @@ const Home = props => {
   return (
     <Container fluid="sm">
       <h1 className="blog-main-title mb-3">Benvenuto sullo Strive Blog!</h1>
-      {!token && <Button variant="primary" onClick={handleShow}>
+      {!token && <div className="d-flex align-items-center"><Button className="mx-2" variant="primary" onClick={handleShow}>
         Login
-      </Button>}
+      </Button><span>OR</span>
+        {/*       // alla pagina del sito ci ha portato express ma da google a express ci ha portato l'Authorized redirect URls di Google Cloud
+ */}<Button as={Link} to={'http://localhost:5001/api/v1/login-google'} className="mx-2" variant="primary">Login with Google</Button></div>}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -59,8 +62,8 @@ const Home = props => {
           </Button>
         </Modal.Footer>
       </Modal>
-    
-     {token && <BlogList />}
+
+      {token && <BlogList />}
     </Container>
   );
 };

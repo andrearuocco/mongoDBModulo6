@@ -1,15 +1,16 @@
 import { model, Schema } from 'mongoose'
 
 const authorSchema = new Schema ({
+    googleId: String,
+    firstName: String,
+    lastName: String,
     name: {
         type: String, 
-        required: true,
         minLength: 3,
         maxLength: 20,   
     },
     surname: {
         type: String, 
-        required: true,
         minLength: 3,
         maxLength: 20,   
     },
@@ -22,7 +23,6 @@ const authorSchema = new Schema ({
     },
     password: {
         type: String,
-        required: true,
         select: false, // impedisce la selezione del campo da parte di mongoDB
     },
     birthDate: {
