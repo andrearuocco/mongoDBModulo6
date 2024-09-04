@@ -1,12 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Container, Modal, Form } from "react-bootstrap";
 import BlogList from "../../components/blog/blog-list/BlogList";
-import {Link} from "react-router-dom"
+import {Link, useSearchParams } from "react-router-dom"
 import "./styles.css";
 import { login, loginGoogle } from "../../data/fetch.js"
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 
 const Home = props => {
+  let [searchParams, setSearchParams] = useSearchParams()
+  useEffect(()=>{
+    console.log(searchParams.get('token'))
+    if(searchParams.get('token')) {
+      localStorage.setItem('token', searchParams.get('token')) // salva nel localStorage il token 
+      setToken(searchParams.get('token')) // aggiorna il token nello stato del contesto
+    }
+  }, [])
   const {token, setToken} = useContext(AuthorContext)
   const [show, setShow] = useState(false);
 
