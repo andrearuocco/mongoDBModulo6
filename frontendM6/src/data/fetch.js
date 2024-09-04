@@ -15,7 +15,7 @@ export const createOnePost = async (formValue, cover) => {
     formData.append('readTime', JSON.stringify(formValue.readTime))
     formData.append('author', formValue.author)
     formData.append('content', formValue.content)
-    formData.append('tags', formValue.tags)
+    // formData.append('tags', formValue.tags)
     // non è necessario l'headers perché il browser lo aggiunge da solo calcolando la dimensione del body
     const res = await fetch ('http://localhost:5001/blogpost', {
         method: 'POST',
