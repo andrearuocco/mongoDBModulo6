@@ -67,6 +67,10 @@ export const me = async() => {
         }
     })
 
+    if(!res.ok){
+        throw new Error(res.status)
+    }
+
     const data = await res.json()
     return data 
 }

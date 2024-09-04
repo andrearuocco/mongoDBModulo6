@@ -37,7 +37,7 @@ export const login = async (req, res) => {
     jwt.sign(
         { authorId: author.id },
         process.env.JWT_SECRET, {
-            expiresIn: '1h'
+            expiresIn: 300
         }, (err, jwtToken) => {
             if (err) return res.status(500).send()
             return res.send({
