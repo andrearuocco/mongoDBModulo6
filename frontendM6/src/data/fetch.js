@@ -2,9 +2,18 @@ export const loadPosts = async () => {
     // carica tutti i post presenti nel blog 
     const res = await fetch ('http://localhost:5001/blogpost')
     const data = await res.json()
-    // console.log(data)
+    console.log(data)
     return data
 }
+
+export const loadPost = async (paramsId) => {
+    // carica un post specifico presente nel blog 
+    console.log(paramsId)
+    const res = await fetch ('http://localhost:5001/blogpost/' + paramsId)
+    const data = await res.json()
+    console.log(data)
+    return data
+}   
 
 export const createOnePost = async (formValue, cover) => {
     // crea un formData per il caricamento di una nuova istanza blogpost che contiene un file da caricare cover

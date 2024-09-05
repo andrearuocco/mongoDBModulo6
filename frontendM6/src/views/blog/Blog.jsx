@@ -3,24 +3,41 @@ import { Container, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
-import posts from "../../data/posts.json";
+import posts from "../../data/posts.json"; 
+import { loadPost } from "../../data/fetch";
 import "./styles.css";
 const Blog = props => {
+/*     const [posts, setPosts] = useState([])
+  useEffect(()=>{
+    loadPosts().then(data=>setPosts(data.dati))
+  }, [])  */
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     const { id } = params;
-    const blog = posts.find(post => post._id.toString() === id);
 
-    if (blog) {
-      setBlog(blog);
-      setLoading(false);
-    } else {
-      navigate("/404");
-    }
-  }, []);
+    
+    const blogPostDetails = async () => {
+      try {
+        const res = await loadPost(id); 
+        if (res) {
+          setBlog(res);
+          setLoading(false); 
+        } else {
+          console.log("non trovato");
+          navigate("/not-found"); // ??
+        }
+      } catch (error) {
+        console.error(error);
+      
+        setLoading(false);
+      }
+    };
+
+    blogPostDetails(); 
+  }, [params, navigate]);
 
   if (loading) {
     return <div>loading</div>;
