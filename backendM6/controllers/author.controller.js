@@ -1,4 +1,5 @@
 import Author from '../models/authorSchema.js'
+import blogPost from '../models/blogpostSchema.js'
 
 export const addAuthor = async (req, res) => {
     // crea nuova istanza del modello author con i dati definiti nel corpo della richiesta 
@@ -82,3 +83,14 @@ export const patchAuthor = async (req, res) => {
     }
 }
 
+/* http://localhost:5001/66d8273d12e5f0cd8286e6f0/blogpost */
+export const getAuthorPosts = async (req, res) => {
+    const {id} =req.params
+    try {
+        const author = await Author.findById(id)
+        const singlePost = await blogPost.find({ author: author })
+        res.send(singlePost) 
+    } catch (error) {
+        res.status(404).send({message: 'Not Found'})
+    }
+}

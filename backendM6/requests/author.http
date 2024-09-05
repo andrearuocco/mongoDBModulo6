@@ -27,3 +27,6 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5001/author/66d321075e8ac74b71c6c49e
+
+### 
+GET http://localhost:5001/author/66d82bc104b4813f656f9eb7/blogpost
