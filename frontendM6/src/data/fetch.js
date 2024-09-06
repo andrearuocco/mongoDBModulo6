@@ -1,9 +1,18 @@
-export const loadPosts = async () => {
+export const loadPosts = async (search) => {
     // carica tutti i post presenti nel blog 
-    const res = await fetch ('http://localhost:5001/blogpost')
+    const urlBase = `http://localhost:5001/blogpost` 
+    const urlFetch = search && `?title=${search}`
+    console.log(urlBase + urlFetch)
+ 
+    const res = await fetch (urlBase + urlFetch)
+    
     const data = await res.json()
     console.log(data)
     return data
+}
+
+export const search = async () => {
+
 }
 
 export const loadPost = async (paramsId) => {

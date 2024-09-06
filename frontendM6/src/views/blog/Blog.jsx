@@ -11,6 +11,7 @@ const Blog = props => {
   useEffect(()=>{
     loadPosts().then(data=>setPosts(data.dati))
   }, [])  */
+  
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
   const params = useParams();

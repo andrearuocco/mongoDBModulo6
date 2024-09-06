@@ -6,7 +6,7 @@ import { loadPosts } from "../../../data/fetch";
 const BlogList = props => {
   const [posts, setPosts] = useState([])
   useEffect(()=>{
-    loadPosts().then(data=>setPosts(data.dati))
+    loadPosts('prendi').then(data=>setPosts(data.dati))
   }, [])
   return (
     <Row>
