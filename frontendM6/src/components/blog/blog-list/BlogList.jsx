@@ -6,8 +6,12 @@ import { AuthorContext } from "../../../context/AuthorContextProvider";
 const BlogList = props => {
   const {token,setToken} = useContext(AuthorContext)
   const [posts, setPosts] = useState([])
+  const [result, setResult] = useState('')
+ const handleSearch = async (event) => {
+  setResult(event.target.value ? event.target.value : '')
+ }
   useEffect(()=>{
-    loadPosts('').then(data=>setPosts(data.dati))
+    loadPosts(result).then(data=>setPosts(data.dati))
   }, [])
   return (
     <Row>
