@@ -94,11 +94,7 @@ export const me = async() => {
 }
 
 export const loadComments = async (id) =>{
-    const res = await fetch (`http://localhost:5001/blogpost/${id}/comments`/* ,{
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-    } */)
+    const res = await fetch (`http://localhost:5001/blogpost/${id}/comments`)
     const data = await res.json();
     return data
 }
@@ -117,7 +113,7 @@ export const newComment = async (id, formValue) =>{
     return data
 } 
 
-export const commentAuthor = async (authorId) =>{
+/* export const commentAuthor = async (authorId) =>{
     const res= await fetch (`http://localhost:5001/author/${authorId}`, {
         headers: {
             //"Authorization": Bearer ${localStorage.getItem('token')},
@@ -126,4 +122,4 @@ export const commentAuthor = async (authorId) =>{
     })
     const data = await res.json() 
     return data
-}
+} */

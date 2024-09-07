@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Image, Modal, Form, Button, Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
-import posts from "../../data/posts.json"; 
+/* import posts from "../../data/posts.json";  */
 import { loadPost, newComment, loadComments } from "../../data/fetch";
 import "./styles.css";
+import { jwtDecode } from "jwt-decode";
+import { AuthorContext } from "../../context/AuthorContextProvider";
 const Blog = props => {
 /*     const [posts, setPosts] = useState([])
   useEffect(()=>{
@@ -15,6 +17,8 @@ const Blog = props => {
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([])
+  const {token} = useContext(AuthorContext)
+  const decodedToken = jwtDecode(token)
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;
@@ -25,7 +29,7 @@ const Blog = props => {
 
       content: "",
       blogpost: id,
-
+      author: decodedToken.authorId,
     };
     const [formValue, setFormValue] = useState(initialFormState)
     const handleChange = (event) => {
@@ -34,12 +38,14 @@ const Blog = props => {
         ...formValue,
         [name]: value,
       });
+      
     };
     const handleSaveComment = async () =>{
       try {
         await newComment(id,formValue)
         const commentsRes = await loadComments(id)
         setComments(commentsRes.dati)
+        console.log(comments)
         setFormValue(initialFormState)
         handleClose()
       } catch (error) {
@@ -57,6 +63,7 @@ const Blog = props => {
         if (res) {
           setBlog(res)
           setComments(commentsRes.dati)
+          console.log(comments)
           /* console.log(...blog.author) */
           setLoading(false); 
         } else {
@@ -118,6 +125,9 @@ console.log(blog)
           }}
         >
           <div className="mt-2 border rounded bg-light">{comment.content}</div> 
+           
+          <div className="mt-2 border rounded bg-light">{comment.author.name}</div> 
+           
         </Col>
       ))}
     </Row>
