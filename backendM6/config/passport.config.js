@@ -11,12 +11,9 @@ const googleStrategy = new GoogleStrategy({
     async function (accessToken, refreshToken, profile, passportNext) {
         console.log(profile)
 
-        const {
-            given_name: firstName,
-            family_name: lastName,
-            email,
-            sub: googleId,
-        } = profile._json;
+        const 
+            {given_name: name, family_name: surname ,email, sub:googleId, picture: avatar}
+         = profile._json;
 
         // nel DB cerchiamo l'esistenza dell'utente
         let author = await Author.findOne({ googleId })
@@ -25,9 +22,10 @@ const googleStrategy = new GoogleStrategy({
         if (!author) {
             const newAuthor = new Author({
                 googleId,
-                firstName,
-                lastName,
-                email
+                name,
+                surname,
+                email,
+                avatar,
             })
 
             author = await newAuthor.save()

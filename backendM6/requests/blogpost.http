@@ -38,29 +38,30 @@ Content-Type: application/json
 DELETE http://localhost:5001/blogpost/66d3242e89b3d9ed5efac5ea
 
 ###
-POST http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments
+POST http://localhost:5001/blogpost/66dcae230fcf92a55fbb58d2/comments
 Content-Type: application/json
 
 {
+    "author": "66dcae100fcf92a55fbb58cb",
     "content": "Lorem Ipsum è un testo segnaposto utilizzato anche dai developer bravi o meno bravi"
 }
 
 ###
-GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments
+GET http://localhost:5001/blogpost/66dcae230fcf92a55fbb58d2/comments
 
 ###
-GET http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comments/66d32801079e900f68090ab1
+GET http://localhost:5001/blogpost/66dcae230fcf92a55fbb58d2/comments/66dcae760fcf92a55fbb58db
 
 ###
-PUT http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comment/66d32801079e900f68090ab1
+PUT http://localhost:5001/blogpost/66dc7762b84a479dcc2cca7e/comment/66dc77acb84a479dcc2cca87
 Content-Type: application/json
 
 {
-    "content": "Lorem Ipsum è un testo segnaposto utilizzato anche dai devoloper non bravi"
+    "content": "Lorem Ipsum è un testo "
 } 
 
 ###
-DELETE http://localhost:5001/blogpost/66d321d5d97567c70e04e3a6/comment/66d32823079e900f68090ab3
+DELETE http://localhost:5001/blogpost/66dc7762b84a479dcc2cca7e/comment/66dc77acb84a479dcc2cca87
 
 
 

@@ -2,8 +2,7 @@ import { model, Schema } from 'mongoose'
 
 const authorSchema = new Schema ({
     googleId: String,
-    firstName: String,
-    lastName: String,
+   
     name: {
         type: String, 
         minLength: 3,

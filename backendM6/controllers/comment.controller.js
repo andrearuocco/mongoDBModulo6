@@ -18,7 +18,7 @@ export const getComments = async (req,res)=>{
     try {
         const comments = await Comment.find({
             blogpost: req.params.blogpostId,
-        }).populate('blogpost', {content:0, _id:0, title: 1})
+        }).populate('blogpost', {_id:0, title: 1}).populate('author');
        
         res.send({
             dati: comments,
@@ -30,7 +30,7 @@ export const getComments = async (req,res)=>{
 
 export const getSingleComment = async (req, res) => {
     try {
-        const singleComment = await Comment.findOne({ blogpost: req.params.blogpostId, _id: req.params.commentId })
+        const singleComment = await Comment.findOne({ blogpost: req.params.blogpostId, _id: req.params.commentId }).populate('author');
         return res.status(200).send(singleComment)
     } catch (error) {
         return res.status(404).send({ message: 'Not Found' })

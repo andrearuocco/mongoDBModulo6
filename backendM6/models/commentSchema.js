@@ -13,6 +13,10 @@ const commentsSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'blogPost',
         },
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: 'Author',
+        },
     },
     {
         collection: "comments",

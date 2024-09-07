@@ -1,30 +1,63 @@
 import React, { useEffect, useState } from "react";
-import { Container, Image } from "react-bootstrap";
+import { Container, Image, Modal, Form, Button, Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
 import posts from "../../data/posts.json"; 
-import { loadPost } from "../../data/fetch";
+import { loadPost, newComment, loadComments } from "../../data/fetch";
 import "./styles.css";
 const Blog = props => {
 /*     const [posts, setPosts] = useState([])
   useEffect(()=>{
     loadPosts().then(data=>setPosts(data.dati))
   }, [])  */
-  
+  const [show, setShow] = useState(false);  
   const [blog, setBlog] = useState({});
   const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([])
   const params = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    const { id } = params;
+  const { id } = params;
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
+  const initialFormState = {
+
+      content: "",
+      blogpost: id,
+
+    };
+    const [formValue, setFormValue] = useState(initialFormState)
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setFormValue({
+        ...formValue,
+        [name]: value,
+      });
+    };
+    const handleSaveComment = async () =>{
+      try {
+        await newComment(id,formValue)
+        const commentsRes = await loadComments(id)
+        setComments(commentsRes.dati)
+        setFormValue(initialFormState)
+        handleClose()
+      } catch (error) {
+        console.error("Errore durante il salvataggio del commento:", error);
+      }
+    }
+  useEffect(() => {
+    
     
     const blogPostDetails = async () => {
       try {
         const res = await loadPost(id); 
+        const commentsRes = await loadComments(id)
+        console.log(res)
         if (res) {
-          setBlog(res);
+          setBlog(res)
+          setComments(commentsRes.dati)
+          /* console.log(...blog.author) */
           setLoading(false); 
         } else {
           console.log("non trovato");
@@ -39,7 +72,7 @@ const Blog = props => {
 
     blogPostDetails(); 
   }, [params, navigate]);
-
+console.log(blog)
   if (loading) {
     return <div>loading</div>;
   } else {
@@ -71,6 +104,44 @@ const Blog = props => {
               __html: blog.content,
             }}
           ></div>
+
+
+
+           <div className="mt-5">Post comments:</div>
+          <Row>
+          {comments.map((comment, i) => (
+          <Col
+          key={`item-${i}`}
+          md={8} className="mb-3"
+          style={{
+            marginBottom: 20,
+          }}
+        >
+          <div className="mt-2 border rounded bg-light">{comment.content}</div> 
+        </Col>
+      ))}
+    </Row>
+    <Button variant="primary" onClick={handleShow}>
+      Add Comment
+    </Button>
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>New comment</Modal.Title>
+      </Modal.Header>
+      <Form.Control size="sm" type="text" placeholder="Max 100 characters" name="content" value={formValue.content} onChange={handleChange} />
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleSaveComment}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
+
+
+
         </Container>
       </div>
     );

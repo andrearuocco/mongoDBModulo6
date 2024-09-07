@@ -98,8 +98,8 @@ const NavBar = props => {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        {token && <Button as={Link} to="/new" className="blog-navbar-add-button bg-dark" size="lg">
+<div className="d-flex">
+        {token && <Button as={Link} to="/new" className="blog-navbar-add-button bg-dark me-3" size="lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -112,6 +112,7 @@ const NavBar = props => {
           </svg>
           Nuovo Articolo
         </Button>}
+        {token && <Button variant="secondary" alt="logout">Primary</Button>}</div>
       </Container>
     </Navbar>
   );

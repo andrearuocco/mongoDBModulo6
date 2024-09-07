@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Col, Row, Form} from "react-bootstrap";
 import BlogItem from "../blog-item/BlogItem";
 import { loadPosts } from "../../../data/fetch";
-
+import { AuthorContext } from "../../../context/AuthorContextProvider";
 const BlogList = props => {
+  const {token,setToken} = useContext(AuthorContext)
   const [posts, setPosts] = useState([])
   useEffect(()=>{
-    loadPosts('prendi').then(data=>setPosts(data.dati))
+    loadPosts('').then(data=>setPosts(data.dati))
   }, [])
   return (
     <Row>

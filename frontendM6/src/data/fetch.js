@@ -11,8 +11,8 @@ export const loadPosts = async (search) => {
     return data
 }
 
-export const search = async () => {
-
+export const search = async (serach) => {
+ console.log(serach)
 }
 
 export const loadPost = async (paramsId) => {
@@ -91,4 +91,39 @@ export const me = async() => {
 
     const data = await res.json()
     return data 
+}
+
+export const loadComments = async (id) =>{
+    const res = await fetch (`http://localhost:5001/blogpost/${id}/comments`/* ,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    } */)
+    const data = await res.json();
+    return data
+}
+
+export const newComment = async (id, formValue) =>{
+ 
+    const res= await fetch (`http://localhost:5001/blogpost/${id}/comments`, {
+        headers: {
+            //"Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json"
+        },        
+        method: "POST",
+        body: JSON.stringify(formValue)
+    })
+    const data = await res.json() 
+    return data
+} 
+
+export const commentAuthor = async (authorId) =>{
+    const res= await fetch (`http://localhost:5001/author/${authorId}`, {
+        headers: {
+            //"Authorization": Bearer ${localStorage.getItem('token')},
+            "Content-Type": "application/json"
+        },
+    })
+    const data = await res.json() 
+    return data
 }

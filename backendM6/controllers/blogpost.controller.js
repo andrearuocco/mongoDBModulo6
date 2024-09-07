@@ -23,7 +23,7 @@ export const addBlogPost = async (req, res) => {
     in http PUT /blogpost */ 
     const blogpost = new blogPost({
         ...req.body,
-        cover: req.file.path, // percorso del file caricato
+        cover: req.file ? req.file.path : null, // percorso del file caricato
         readTime: JSON.parse(req.body.readTime) // parso readTime in quanto inviato come stringa JSON
     }); 
     let newBlPo
@@ -79,7 +79,7 @@ export const getSingle = async (req,res) => {
     // cerco una specifica istanza del modello autore recuperando l'id dalla richiesta 
     const {id} = req.params
     try { 
-        const blogpost = await blogPost.findById(id)
+        const blogpost = await blogPost.findById(id).populate('author');
         res.send(blogpost)
     } catch(error) {
         res.status(404).send({message: 'Not Found'})
