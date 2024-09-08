@@ -4,21 +4,25 @@ export const loadPosts = async (search) => {
     const urlFetch = search && `?title=${search}`
     console.log(urlBase + urlFetch)
  
-    const res = await fetch (urlBase + urlFetch)
+    const res = await fetch (urlBase + urlFetch,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    })
     
     const data = await res.json()
     console.log(data)
     return data
 }
 
-export const search = async (serach) => {
- console.log(serach)
-}
-
 export const loadPost = async (paramsId) => {
     // carica un post specifico presente nel blog 
     console.log(paramsId)
-    const res = await fetch ('http://localhost:5001/blogpost/' + paramsId)
+    const res = await fetch ('http://localhost:5001/blogpost/' + paramsId,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    })
     const data = await res.json()
     console.log(data)
     return data
@@ -94,7 +98,11 @@ export const me = async() => {
 }
 
 export const loadComments = async (id) =>{
-    const res = await fetch (`http://localhost:5001/blogpost/${id}/comments`)
+    const res = await fetch (`http://localhost:5001/blogpost/${id}/comments`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    })
     const data = await res.json();
     return data
 }
@@ -103,7 +111,7 @@ export const newComment = async (id, formValue) =>{
  
     const res= await fetch (`http://localhost:5001/blogpost/${id}/comments`, {
         headers: {
-            //"Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
             "Content-Type": "application/json"
         },        
         method: "POST",
@@ -123,3 +131,51 @@ export const newComment = async (id, formValue) =>{
     const data = await res.json() 
     return data
 } */
+
+    export const updateComment = async (blogpostId, commentId, updatedCommentData) => {
+        try {
+          const response = await fetch(`http://localhost:5001/blogpost/${blogpostId}/comment/${commentId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem('token')}`, // Invia il token JWT per autenticazione
+            },
+            body: JSON.stringify(updatedCommentData), // Il nuovo contenuto del commento
+          });
+      
+          if (!response.ok) {
+            throw new Error("Errore durante l'aggiornamento del commento");
+          }
+      
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Errore nell'update del commento:", error);
+          throw error;
+        }
+      };
+
+      export const deleteComment = async (blogpostId, commentId) => {
+      /*   try { */
+          const response = await fetch(`http://localhost:5001/blogpost/${blogpostId}/comment/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Assicurati di avere il token corretto
+            },
+          });
+        
+/*           console.log('Stato risposta:', response.status);  // Controlla lo stato della risposta
+          if (!response.ok) {
+            throw new Error(`Errore nella richiesta: ${response.status}`);
+          }
+      
+          // Se la risposta ha contenuto, analizzalo. Altrimenti, restituisci un oggetto vuoto.
+          const responseBody = response.status !== 204 ? await response.text() : null;  // 204 No Content
+          return responseBody ? JSON.parse(responseBody) : {};  // Se il corpo è vuoto, non decodificarlo come JSON */
+      
+ /*        } catch (error) {
+          console.error('Errore durante l\'eliminazione del commento:', error);
+          throw error;
+        } */
+      };

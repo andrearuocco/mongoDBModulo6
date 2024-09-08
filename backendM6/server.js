@@ -9,6 +9,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import passport from 'passport'
 import GoogleStrategy from './config/passport.config.js' 
+import authorization from './middleware/authorization.js';
 
 /* 
 import blogPost from './models/blogpostSchema.js'
@@ -52,8 +53,8 @@ server.use(cors()) // cors è un middleware che consente la connessione tra il s
 server.use(morgan("dev")) // middleware che mostra i log delle richieste http
 server.use(helmet()) // modulo che aiuta a proteggere le applicazioni
 
-server.use('/author', authorRoutes)
-server.use('/blogpost', blogpostRouter)
+server.use('/author', authorization, authorRoutes)
+server.use('/blogpost', authorization, blogpostRouter)
 server.use('/api/v1', authRouter) 
 
 await mongoose.connect(process.env.MONGODB_URL)
