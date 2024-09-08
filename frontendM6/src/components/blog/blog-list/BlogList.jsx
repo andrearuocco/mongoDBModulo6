@@ -8,12 +8,19 @@ const BlogList = props => {
   const [posts, setPosts] = useState([])
   const [result, setResult] = useState('')
  const handleSearch = async (event) => {
-  setResult(event.target.value ? event.target.value : '')
+  setResult(!event.target.value ? '' : event.target.value)
  }
   useEffect(()=>{
     loadPosts(result).then(data=>setPosts(data.dati))
-  }, [])
-  return (
+  }, [result])
+  return (<div className="d-flex flex-column">
+    <Form.Control
+    className="mb-2"
+    type="text"
+    placeholder="Disabled input"
+    aria-label="Disabled input example"
+    onChange={handleSearch}
+  />
     <Row>
       {posts.map((post, i) => (
         <Col
@@ -26,7 +33,7 @@ const BlogList = props => {
           <BlogItem key={post.title} {...post} />
         </Col>
       ))}
-    </Row>
+    </Row></div>
   );
 };
 
