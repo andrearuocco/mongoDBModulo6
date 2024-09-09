@@ -1,4 +1,4 @@
-export const loadPosts = async (search) => {
+/* export const loadPosts = async (search) => {
     // carica tutti i post presenti nel blog 
     const urlBase = `http://localhost:5001/blogpost` 
     const urlFetch = search && `?title=${search}`
@@ -13,7 +13,23 @@ export const loadPosts = async (search) => {
     const data = await res.json()
     console.log(data)
     return data
+} */
+
+ export const loadPosts = async (search, page = 1, perPage = 4) => {
+    const urlBase = 'http://localhost:5001/blogpost';
+    const urlSearch = search ? `&title=${search}` : '';
+    const urlWithPagination = `${urlBase}?page=${page}&perPage=${perPage}${urlSearch}`;
+
+    const res = await fetch(urlWithPagination, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    const data = await res.json();
+    return data;
 }
+  
 
 export const loadPost = async (paramsId) => {
     // carica un post specifico presente nel blog 

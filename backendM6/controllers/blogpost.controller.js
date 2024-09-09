@@ -57,9 +57,9 @@ export const getAllBlPo = async (req,res) => {
 
         const blogpost = await blogPost.find(req.query.title ? {title: {$regex: req.query.title, $options: 'i'}} : {}) // cerca tra i posts secondo il titolo 
             .collation({locale: 'it'}) // ignora le maiuscole nell'ordinamento secondo il sort 
-            // .sort({ title: 1, category: 1 }) // ordino gli oggetti JSON in ordine crescente secondo il nome e la categoria 
-            // .skip((page - 1) * perPage) // salto documenti pagina precedente 
-            // .limit(perPage) // indico gli elementi da mostrare per pagina
+            .sort({ title: 1, category: 1 }) // ordino gli oggetti JSON in ordine crescente secondo il nome e la categoria 
+            .skip((page - 1) * perPage) // salto documenti pagina precedente 
+            .limit(perPage) // indico gli elementi da mostrare per pagina
             .populate('author');
 
         const totalResults = await blogPost.countDocuments();
