@@ -39,7 +39,11 @@ export const createOnePost = async (formValue, cover) => {
     formData.append('content', formValue.content)
     // formData.append('tags', formValue.tags)
     // non è necessario l'headers perché il browser lo aggiunge da solo calcolando la dimensione del body
-    const res = await fetch ('http://localhost:5001/blogpost', {
+    const res = await fetch('http://localhost:5001/blogpost', {
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+   
         method: 'POST',
         body: formData
     })
@@ -179,3 +183,65 @@ export const newComment = async (id, formValue) =>{
           throw error;
         } */
       };
+
+
+ /*      export const editPost = async (postId, formValue) =>{
+        const res = await fetch(`http://localhost:5001/blogpost/${postId}`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                "Content-Type": "application/json",
+            },
+            method: "PUT",
+            body: JSON.stringify(formValue)
+        })
+    } */
+
+        export const deletePost = async (postId) =>{
+            try {
+                const res = await fetch(`http://localhost:5001/blogpost/${postId}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                        "Content-Type": "application/json"
+                    },        
+                    method: "DELETE",
+                })
+                if (res.ok) {
+                    console.log(`Post con ID ${postId} eliminato con successo.`);
+                } else {
+                    const errorData = await res.json()
+                    console.error(`Errore: ${errorData.message}`);
+                }
+            } catch (error) {
+                console.error(`Errore durante l'eliminazione del post: ${error.message}`);
+            }
+        }
+
+      
+
+        export const editPost = async function(id, postData, file){
+            try {
+                const formData = new FormData()
+                formData.append('category', postData.category)
+                formData.append('title', postData.title)
+                formData.append('authorId', postData.authorId)
+                formData.append('content', postData.content)
+                formData.append('cover', file)
+        
+                const resp = await fetch(`http://localhost:5001/blogpost/${id}`,{
+                    headers:{
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    },
+                    method: 'PUT',
+                    body: formData
+                })
+        
+                if(!resp.ok) throw Error('Modifica del post fallita')
+                
+                const data = await resp.json()
+                return(data)
+        
+            } catch (error) {
+                console.log(error)
+                alert("Attenzione, compilare tutti i campi obbligatori!")
+            }
+        }

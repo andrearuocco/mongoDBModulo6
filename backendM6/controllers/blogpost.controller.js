@@ -21,9 +21,10 @@ export const addBlogPost = async (req, res) => {
         ]
     }
     in http PUT /blogpost */ 
+    const coverPath = req.file ? req.file.path : null
     const blogpost = new blogPost({
         ...req.body,
-        cover: req.file ? req.file.path : null, // percorso del file caricato
+        cover: coverPath, // percorso del file caricato
         readTime: JSON.parse(req.body.readTime) // parso readTime in quanto inviato come stringa JSON
     }); 
     let newBlPo

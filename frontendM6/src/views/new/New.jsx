@@ -8,12 +8,14 @@ import draftToHtml from "draftjs-to-html"
 import { createOnePost } from "../../data/fetch";
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const NewBlogPost = props => {
   const [text, setText] = useState("");
   /* creazione nuovo blogpost con inserimento cover */
   const[cover, setCover] = useState("")
   const {token} = useContext(AuthorContext)
   const decodedToken = jwtDecode(token)
+  const navigate = useNavigate()
   console.log(decodedToken)
   const initialFormValue = {
     category: "",
@@ -52,9 +54,14 @@ const NewBlogPost = props => {
     })
     
   });
+  const handleSend = async(event) =>{
+    event.preventDefault();
+    await createOnePost(formValue,cover)
+    navigate('/')
+  }
   return (
     <Container className="new-blog-container">
-      <Form className="mt-5">
+      <Form className="mt-5" onSubmit={handleSend}>
         <Form.Group controlId="blog-form" className="mt-3">
           <Form.Label>Titolo</Form.Label>
           <Form.Control size="lg" placeholder="Title" name="title" onChange={(event) => handleFormValue(event)} />
@@ -82,12 +89,12 @@ const NewBlogPost = props => {
             Reset
           </Button>
           <Button
-            type="button"
+            type="submit"
             size="lg"
             variant="dark"
             style={{
               marginLeft: "1em",
-            }} onClick={() => createOnePost(formValue, cover)}
+            }} 
           >
             Invia
           </Button>

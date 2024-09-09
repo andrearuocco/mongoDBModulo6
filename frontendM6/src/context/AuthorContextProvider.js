@@ -20,7 +20,7 @@ export default function AuthorContextProvider({children}) {
     useEffect(()=>{
         if (token) getMe() // la me vuole come auth il token, quindi senza il token si rompe il backend
     },[token])
-    const value = {token, setToken, authorInfo}
+    const value = {token, setToken, authorInfo, setAuthorInfo}
     return (
         <AuthorContext.Provider value={value}>{children}</AuthorContext.Provider>
     )

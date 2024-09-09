@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import { Button, Container, Navbar, Modal, Form } from "react-bootstrap";
+import { Button, Container, Navbar, Modal, Form, Image } from "react-bootstrap";
 import { register } from "../../data/fetch.js"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { AuthorContext } from "../../context/AuthorContextProvider.js";
 import "./styles.css";
 
 const NavBar = props => {
-  const {token, setToken} = useContext(AuthorContext) // token usato per mostare pagina loggata oppure no
-  
+  const {token, setToken, authorInfo, setAuthorInfo} = useContext(AuthorContext) // token usato per mostare pagina loggata oppure no
+  const navigate = useNavigate()
   const [showRegister, setShowRegister] = useState(false); // stato per mostrare il form di registrazione utente
   // settano lo stato di showRegister per far apparire o scamparire il modal di registrazione
   const handleCloseTwo = () => setShowRegister(false);
@@ -41,15 +41,19 @@ const NavBar = props => {
     console.log(res)
     handleCloseTwo()
   }  
+  const handleLogout = () =>{
+    setToken(null)
+    setAuthorInfo(null)
+    localStorage.removeItem('token')
+    navigate('/')
+  }
   return (
     <Navbar expand="lg" className="blog-navbar" fixed="top">
       <Container className="justify-content-between">
         <Navbar.Brand as={Link} to="/">
           <img className="blog-navbar-brand" alt="logo" src={logo} />
         </Navbar.Brand>
-        {!token && <Button className="ms-3" variant="secondary" onClick={handleShowTwo}>
-          Register
-        </Button>}
+        
         <Modal show={showRegister} onHide={handleCloseTwo}>
           <Modal.Header closeButton>
             <Modal.Title>Registration</Modal.Title>
@@ -99,6 +103,9 @@ const NavBar = props => {
           </Modal.Footer>
         </Modal>
 <div className="d-flex">
+{!token && <Button className="ms-3" variant="secondary" onClick={handleShowTwo}>
+          Register
+        </Button>}
         {token && <Button as={Link} to="/new" className="blog-navbar-add-button bg-dark me-3" size="lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +119,11 @@ const NavBar = props => {
           </svg>
           Nuovo Articolo
         </Button>}
-        {token && <Button variant="secondary" alt="logout">Primary</Button>}</div>
+        {token && <Button className="ms-2 me-2" variant="primary" onClick={handleLogout}>
+            Logout
+          </Button>}
+        {authorInfo && <Image src={authorInfo.avatar} className="authorAvatar me-2" />}  
+          </div>
       </Container>
     </Navbar>
   );

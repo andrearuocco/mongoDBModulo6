@@ -18,3 +18,9 @@
   width: 160px;
   text-decoration: none;
 }
+
+.authorAvatar{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
